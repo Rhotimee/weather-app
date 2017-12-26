@@ -1,8 +1,4 @@
-// https://api.darksky.net/forecast/10d6b7374e2a19a0a8f3468975b624b9/37.8267,-122.4233
-
 const request = require('request');
-
-const geocode = require('../geocode/geocode');
 
 let getWeather = (lat, lng, callback) => {
 
@@ -17,17 +13,11 @@ let getWeather = (lat, lng, callback) => {
                 timeZone: body.timezone,
                 icon: body.currently.icon
             });
-
         } else {
             callback(`Unable to fetch weather`)
         }
-
     });
-
 };
-
-
-
 
 module.exports.getWeather = getWeather;
 
