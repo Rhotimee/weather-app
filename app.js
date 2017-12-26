@@ -1,6 +1,7 @@
-
 const yargs = require('yargs');
+
 const geocode = require('./geocode/geocode')
+const weather = require('./weather/weather')
 
 
 const argv = yargs
@@ -20,6 +21,17 @@ geocode.geocodeAddress(argv.address, (errorMessage, results) => {
     if (errorMessage){
         console.log(errorMessage);
     } else {
-        console.log(JSON.stringify(results, undefined, 2));
+        console.log(results.address); // undefined is for filtering function and 2 is for indentation
+
+        weather.getWeather(results.latitude, results.longitude, (errorMessage, weatherResults) =>{
+            if (errorMessage){
+                console.log(errorMessage)
+            } else {
+                // console.log(JSON.stringify(weatherResults, undefined, 2))
+                console.log(`The temperature is currently ${weatherResults.temperature} and  it is a ${weatherResults.icon} in ${results.address}`)
+            }
+        });
     }
-})
+
+});
+
